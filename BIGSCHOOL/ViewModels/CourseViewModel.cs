@@ -1,14 +1,15 @@
-﻿using BIGSCHOOL.Models;
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.Globalization;
+using BIGSCHOOL.Models;
+using BIGSCHOOL.ViewModels;
 
 namespace BIGSCHOOL.ViewModels
 {
     public class CourseViewModel
     {
+        public int Id { get; set; }
         [Required]
         public string Place { get; set; }
         [Required]
@@ -17,12 +18,12 @@ namespace BIGSCHOOL.ViewModels
         [Required]
         public string Time { get; set; }
         [Required]
-        [ValidTime]
         public byte Category { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public DateTime GetDateTime()
         {
-            return DateTime.Parse(string.Format("{0} {1}", Date, Time));
+            string dateTimeString = string.Format("{0} {1}", Date, Time);
+            return DateTime.ParseExact(dateTimeString, "dd/MM/yyyy H:mm", CultureInfo.InvariantCulture);
         }
     }
 }
