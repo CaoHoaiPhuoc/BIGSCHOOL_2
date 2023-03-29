@@ -7,8 +7,10 @@ using BIGSCHOOL.ViewModels;
 
 namespace BIGSCHOOL.ViewModels
 {
-    public class CourseViewModel
+    public class CoursesViewModel
     {
+        public IEnumerable<Course> UpcomingCourses { get; set; }
+        public bool ShowAction { get; set; }
         public int Id { get; set; }
         [Required]
         public string Place { get; set; }

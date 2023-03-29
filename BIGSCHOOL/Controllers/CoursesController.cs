@@ -14,7 +14,24 @@ namespace BIGSCHOOL.Controllers
 {
     public class CoursesController : Controller
     {
+        [Authorize]
+        public ActionResult Attending()
+        {
+            var userId = User.Identity.GetUserId();
 
+            var courses = _dbContext.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Course)
+                .Include(l => l.Lecturer)
+                .Include(l => l.Category)
+                .ToList();
+            var viewModel = new CoursesViewModel
+            {
+                UpcomingCourses = courses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
+        }
 
         // GET: Courses
         private readonly ApplicationDbContext _dbContext;
@@ -25,7 +42,7 @@ namespace BIGSCHOOL.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            var viewModel = new CourseViewModel
+            var viewModel = new CoursesViewModel
             {
                 Categories = _dbContext.Categories.ToList()
             };
@@ -36,7 +53,7 @@ namespace BIGSCHOOL.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CourseViewModel viewModel)
+        public ActionResult Create(CoursesViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {

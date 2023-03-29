@@ -18,11 +18,11 @@
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
                 </ul>
             </li>*@
-            <li class="dropdown show">
+            <li class="dropdown-menu">
                 <a id="item" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-
-                   expanded="false">@*@User.Identity.GetUserName()*@ <span class="caret"></span></a>
+                   expanded="false">@User.Identity.GetUserName()<span class="caret"></span></a>
                 <ul aria-labelledby="item" class="dropdown-menu">
-                    <li><a href="#">Course I'm Going</a></li>
+                    <li><a href="@Url.Action("Attending", "Courses")">Course I'm Going</a></li>
                     <li><a href="#">Lecture I'm Flowing</a></li>
                     <li><a role="separator" class="divider"></a></li>
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
